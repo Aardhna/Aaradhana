@@ -1,0 +1,73 @@
+// C++ program to solve fractional Knapsack Problem 
+#include <bits/stdc++.h> 
+using namespace std; 
+
+ 
+struct Item { 
+	int value, weight; 
+}; 
+
+bool cmp(struct Item a, struct Item b) 
+{ 
+	double r1 = (double)a.value / a.weight; 
+	double r2 = (double)b.value / b.weight; 
+	return r1 > r2; 
+} 
+
+double fractionalKnapsack(struct Item arr[], 
+						int N, int size) 
+{ 
+	sort(arr, arr + size, cmp); 
+
+	int curWeight = 0; 
+
+	double finalvalue = 0.0; 
+
+	for (int i = 0; i < size; i++) { 
+
+		if (curWeight + arr[i].weight <= N) { 
+			curWeight += arr[i].weight; 
+			finalvalue += arr[i].value; 
+		} 
+
+		else { 
+			int remain = N - curWeight; 
+			finalvalue += arr[i].value 
+						* ((double)remain 
+							/ arr[i].weight); 
+
+			break; 
+		} 
+	} 
+	return finalvalue; 
+} 
+int main() 
+{ 
+	
+	 int n;
+    cout << "Enter the number of items: ";
+    cin >> n;
+    Item arr[n];
+    for (int i = 0; i < n; ++i) {
+        cout << "Enter value and weight for item " << i + 1 << ": ";
+        cin >> arr[i].value >> arr[i].weight;
+    }
+
+    int capacity;
+    cout << "Enter the capacity of the knapsack: ";
+    cin >> capacity;
+    
+    double maxValue = fractionalKnapsack(arr,capacity,n);
+	cout << "Maximum profit earned = "	<< maxValue<<endl; 
+	return 0; 
+}
+*******************************************
+
+ N = 60
+arr[] = { { 100, 10 }, 
+                   { 280, 40 }, 
+                   { 120, 20 }, 
+                   { 120, 24 } };
+
+o/p=
+Maximum profit earned = 440
