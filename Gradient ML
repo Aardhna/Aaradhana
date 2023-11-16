@@ -1,0 +1,23 @@
+#Implement Gradient Descent Algorithm to find local minima of function
+
+import numpy as np
+def g(s, gf, mi, lr, b):
+    s1 = [s]
+    x = s1[-1]
+    for i in range(mi):
+        d = lr*gf(x)
+        if np.abs(d)<b:
+            break
+        x = x-d
+        s1.append(x)
+    return s1,x,lr
+
+def gd_f(x):
+    return 28*x
+
+list1, r, lr = g(2,gd_f,100,0.01,0.0001)
+print(r)
+print(lr)
+print(list1)
+
+
